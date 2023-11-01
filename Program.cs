@@ -55,6 +55,11 @@ namespace CasusWebApps
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapControllerRoute(
+                name: "addimage_create",
+                pattern: "{controller=ImageUpload}/{action=Create}/{id?}");
+
             app.MapRazorPages();
 
             app.Run();

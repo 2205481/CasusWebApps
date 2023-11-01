@@ -12,8 +12,6 @@ namespace CasusWebApps.Models
         {
         
         }
-
         public DbSet<ImageHandler> ImageHandlers {  get; set; }
-
     }
 }
