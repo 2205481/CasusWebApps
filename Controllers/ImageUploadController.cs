@@ -46,18 +46,19 @@ namespace CasusWebApps.Controllers
                     addImageRequest.ImageFile.CopyTo(stream);
                 }
 
-                    addImageRequest.ImageUrl = "/uploads/" + uniqueFileName;
+                imageHandler.ImageUrl = "/uploads/" + uniqueFileName;
             }
             wasteDbContext.ImageHandlers.Add(imageHandler);
             wasteDbContext.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
 
-        /*
+
         // GET: ImageUploadController1
         public ActionResult Index()
         {
-            return View();
+            var imageHandler = wasteDbContext.ImageHandlers.ToList();
+            return View("AllImages", imageHandler);
         }
 
         // GET: ImageUploadController1/Details/5
@@ -66,12 +67,6 @@ namespace CasusWebApps.Controllers
             return View();
         }
 
-        // GET: ImageUploadController1/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-        
         // GET: ImageUploadController1/Edit/5
         public ActionResult Edit(int id)
         {
@@ -112,7 +107,8 @@ namespace CasusWebApps.Controllers
             {
                 return View();
             }
-        */
+
+        }
+
     }
-    
 }
