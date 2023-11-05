@@ -1,0 +1,19 @@
+﻿@model CasusWebApps.Models.ImageHandler
+
+@{
+    ViewData["Title"] = "Process Image";
+}
+
+<h2>Process Image</h2>
+
+<div>
+    <img src="@Model.ImageUrl" alt="Image" />
+
+    <form asp-controller="ImageProcessing" asp-action="ProcessImage" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="imageId" value="@Model.Id" />
+        <input type="file" name="editedImage" accept="image/*" required />
+        <input type="number" name="rectangleWidth" placeholder="Rectangle Width" required />
+        <input type="number" name="rectangleHeight" placeholder="Rectangle Height" required />
+        <button type="submit">Edit Image</button>
+    </form>
+</div>
