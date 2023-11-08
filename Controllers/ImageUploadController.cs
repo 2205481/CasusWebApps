@@ -1,10 +1,10 @@
-﻿using CasusWebApps.Models;
-using CasusWebApps.Models.ViewModels;
+﻿using CasusWebApps.Models.ViewModels;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
+using CasusWebApps.Models;
 
 namespace CasusWebApps.Controllers
 {
@@ -60,6 +60,21 @@ namespace CasusWebApps.Controllers
             var imageHandler = wasteDbContext.ImageHandlers.ToList();
             return View("AllImages", imageHandler);
         }
+
+        public IActionResult ProcessImage()
+        {
+            var images = wasteDbContext.ImageHandlers.ToList();
+
+            if (images.Any())
+            {
+                return View("ProcessImage", images );
+            }
+            return NotFound();
+        }
+
+
+
+
 
         // GET: ImageUploadController1/Details/5
         public ActionResult Details(int id)

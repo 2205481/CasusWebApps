@@ -1,0 +1,16 @@
+﻿@model List<CasusWebApps.Models.ImageHandler>
+
+@{
+    ViewData["Title"] = "All Images";
+}
+
+<h2>All Images</h2>
+
+@foreach (var image in Model)
+{
+    <div>
+        <img src="@image.ImageUrl" alt="Image" />
+
+        <a asp-controller="ImageUpload" asp-action="ProcessImage" asp-route-id="@image.Id">Process Image</a>
+    </div>
+}

@@ -3,6 +3,7 @@ using CasusWebApps.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using SixLabors.ImageSharp.Web.DependencyInjection;
 
 namespace CasusWebApps
 {
@@ -29,6 +30,8 @@ namespace CasusWebApps
             
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddImageSharp();
+
             var app = builder.Build();
 
             /*
@@ -44,6 +47,7 @@ namespace CasusWebApps
                 app.UseHsts();
             }
             */
+            app.UseImageSharp();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -51,6 +55,10 @@ namespace CasusWebApps
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "processimage",
+                pattern: "{controller=ImageProcessing}/{action=ProcessImage}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
@@ -64,6 +72,7 @@ namespace CasusWebApps
 
             app.Run();
         }
+
     }
     
 }
