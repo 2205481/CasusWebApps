@@ -8,6 +8,7 @@ using SixLabors.ImageSharp.Drawing.Processing;
 using System.IO;
 using CasusWebApps.Models;
 using Microsoft.Extensions.Hosting;
+using CasusWebApps.Migrations;
 
 namespace CasusWebApps.Controllers
 {
@@ -24,14 +25,9 @@ namespace CasusWebApps.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("ProcessImage/{imageId}")]
-        public IActionResult ProcessImage(Guid imageId, IFormFile editedImage, int rectangleWidth, int rectangleHeight)
+        public IActionResult ProcessImage(Guid id, IFormFile editedImage, int rectangleWidth, int rectangleHeight)
         {
-            var originalImage = wasteDbContext.ImageHandlers.Find(imageId);
-            if (originalImage == null)
-            {
-                return NotFound();
-            }
+            var originalImage = wasteDbContext.ImageHandlers.Find(id);
 
             if (editedImage != null && editedImage.Length > 0)
             {
@@ -49,7 +45,7 @@ namespace CasusWebApps.Controllers
                 }
             }
 
-            return RedirectToAction("Index", "ImageUpload");
+                return RedirectToAction("Index", "ImageUpload");
         }
     }
 }

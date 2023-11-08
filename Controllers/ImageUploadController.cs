@@ -67,10 +67,8 @@ namespace CasusWebApps.Controllers
 
             if (images.Any())
             {
-                var firstImage = images.First();
-                return View("ProcessImage", firstImage);
+                return View("ProcessImage", images );
             }
-
             return NotFound();
         }
 

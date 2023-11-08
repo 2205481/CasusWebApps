@@ -1,4 +1,4 @@
-﻿@model CasusWebApps.Models.ImageHandler
+﻿@model List<CasusWebApps.Models.ImageHandler>
 
 @{
     ViewData["Title"] = "Process Image";
@@ -7,13 +7,17 @@
 <h2>Process Image</h2>
 
 <div>
-    <img src="@Model.ImageUrl" alt="Image" />
-
     <form asp-controller="ImageProcessing" asp-action="ProcessImage" method="post" enctype="multipart/form-data">
-        <input type="hidden" name="imageId" value="@Model.Id" />
-        <input type="file" name="editedImage" accept="image/*" required />
-        <input type="number" name="rectangleWidth" placeholder="Rectangle Width" required />
-        <input type="number" name="rectangleHeight" placeholder="Rectangle Height" required />
-        <button type="submit">Edit Image</button>
+        <label>Select an image:</label>
+        <select name="selectedImageId" required>
+            @foreach (var image in Model)
+            {
+                <option value="@image.Id">@image.ImageUrl</option>
+            }
+        </select>
+        <br />
+        <input type="number" name="rectangleWidth" id="rectangleWidth" placeholder="Rectangle Width" required />
+        <input type="number" name="rectangleHeight" id="rectangleHeight" placeholder="Rectangle Height" required />
+        <button type="submit">Save Edited Image</button>
     </form>
 </div>
