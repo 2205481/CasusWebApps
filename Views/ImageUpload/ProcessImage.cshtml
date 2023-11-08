@@ -4,20 +4,21 @@
     ViewData["Title"] = "Process Image";
 }
 
-<h2>Process Image</h2>
+@if (Model != null && Model.Any())
+{
+    <select id="imageSelector" required>
+        @foreach (var image in Model)
+        {
+            <option value="@image.Id">@image.ImageUrl</option>
+        }
+    </select>
+    <br />
+    <canvas id="imageCanvas" width="800" height="600" style="border: 1px solid #000;"></canvas>
+    <br />
+    <button onclick="saveAnnotation()">Save image</button>
+    <input type="text" id="tagName" placeholder="Tag Name">
+    <br />
+    <img id="image" src="" alt="Image" style="display: none;">
+}
 
-<div>
-    <form asp-controller="ImageProcessing" asp-action="ProcessImage" method="post" enctype="multipart/form-data">
-        <label>Select an image:</label>
-        <select name="selectedImageId" required>
-            @foreach (var image in Model)
-            {
-                <option value="@image.Id">@image.ImageUrl</option>
-            }
-        </select>
-        <br />
-        <input type="number" name="rectangleWidth" id="rectangleWidth" placeholder="Rectangle Width" required />
-        <input type="number" name="rectangleHeight" id="rectangleHeight" placeholder="Rectangle Height" required />
-        <button type="submit">Save Edited Image</button>
-    </form>
-</div>
+<script src="~/js/imageAnnotation.js"></script>

@@ -72,9 +72,25 @@ namespace CasusWebApps.Controllers
             return NotFound();
         }
 
+        [HttpGet]
+        [Route("ImageUpload/GetImageById")]
+        public IActionResult GetImageById(Guid id)
+        {
+            var image = wasteDbContext.ImageHandlers.FirstOrDefault(i => i.Id == id);
 
+            if (image == null)
+            {
+                return NotFound();
+            }
 
+            return File(System.IO.Path.Combine(hostEnvironment.ContentRootPath, "wwwroot", image.ImageUrl), "image/jpeg");
+        }
 
+        [HttpPost]
+        public IActionResult SaveAnnotation([FromBody] AnnotationModel annotation)
+        {
+            return Ok();
+        }
 
         // GET: ImageUploadController1/Details/5
         public ActionResult Details(int id)
