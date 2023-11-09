@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\processed-uploads\" />
-    <Folder Include="wwwroot\uploads\processed\" />
   </ItemGroup>
 
 </Project>
