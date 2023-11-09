@@ -33,7 +33,6 @@ namespace CasusWebApps.Controllers
         {
             var imageHandler = new CasusWebApps.Models.ImageHandler
             {
-                ItemType = addImageRequest.ItemType
             };
 
             if (addImageRequest.ImageFile != null && addImageRequest.ImageFile.Length > 0)
@@ -92,18 +91,39 @@ namespace CasusWebApps.Controllers
         {
             if (ModelState.IsValid)
             {
-                string uploadsfolder = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "wwwroot", "processed-uploads");
-                string uniqueFileName = Guid.NewGuid().ToString() + "_processed_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
-                string filePath = System.IO.Path.Combine(uploadsfolder, uniqueFileName);
+                string processedUploadsfolder = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "wwwroot", "processed-uploads");
+                string uniqueCanvasFileName = Guid.NewGuid().ToString() + "_processed_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                string canvasFilePath = System.IO.Path.Combine(processedUploadsfolder, uniqueCanvasFileName);
 
-
+                SaveCanvasImage(annotation.CanvasImage, canvasFilePath);
+                annotation.ImageUrl = "/processed-uploads/" + uniqueCanvasFileName;
 
                 wasteDbContext.AnnotationModels.Add(annotation);
                 wasteDbContext.SaveChanges();
+
                 return Ok();
+            }
+
+            if(!ModelState.IsValid)
+            {
+                foreach (var modelState in ModelState.Values)
+                {
+                    foreach (var error in modelState.Errors)
+                    {
+                        Console.WriteLine(error.ErrorMessage);
+                    }
+                }
+
+                return BadRequest();
             }
             
             return BadRequest();
+        }
+
+        private void SaveCanvasImage(string canvasImageData, string filePath)
+        {
+            byte[] canvasImageBytes = Convert.FromBase64String(canvasImageData.Split(',')[1]);
+            System.IO.File.WriteAllBytes(filePath, canvasImageBytes);
         }
 
         // GET: ImageUploadController1/Details/5

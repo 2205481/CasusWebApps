@@ -7,7 +7,7 @@ namespace CasusWebApps.Models
         [Key]
         public Guid Id { get; set; }
         public string ItemType {  get; set; }
-        public string ImageUrl { get; set; }
+        public string? ImageUrl { get; set; }
         public string CanvasImage { get; set; }
         public int BoundingBoxX { get; set; }
         public int BoundingBoxY { get; set; }

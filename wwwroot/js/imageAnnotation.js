@@ -42,10 +42,12 @@ function saveAnnotation() {
     }
 
     const itemType = itemTypeElement.value;
+    const canvasImageData = canvas.toDataURL('image/jpeg');
 
     // Create FormData object and append annotation data
     const formData = new FormData();
     formData.append('ItemType', itemType);
+    formData.append('CanvasImage', canvasImageData);
     formData.append('BoundingBoxX', boundingBox.x);
     formData.append('BoundingBoxY', boundingBox.y);
     formData.append('BoundingBoxWidth', boundingBox.width);
@@ -67,12 +69,11 @@ function saveAnnotation() {
         });
 }
 
-
 function getBoundingBox() {
-    const x = 50;
-    const y = 50;
-    const width = 100;
-    const height = 100;
+    const x = startPoint.x;
+    const y = startPoint.y;
+    const width = endPoint.x - startPoint.x;
+    const height = endPoint.y - startPoint.y;
 
     return { x, y, width, height };
 }
