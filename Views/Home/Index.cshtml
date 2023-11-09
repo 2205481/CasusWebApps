@@ -4,10 +4,18 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <a asp-controller="ImageUpload"
-    asp-action="Create">Upload Image</a>
-    <a asp-controller="ImageUpload"
-       asp-action="Index">Stored Image(s)</a>
-    <a asp-controller="ImageUpload"
-    asp-action="ProcessImage">Process Image(s)</a>
+    <div class="d-grid gap-2">
+        <button class="btn btn-lg btn-primary" type="button">
+            <a asp-controller="ImageUpload"
+               asp-action="Create">Upload Image</a>
+        </button>
+        <button class="btn btn-lg btn-primary" type="button">
+            <a asp-controller="ImageUpload"
+               asp-action="Index">Stored Image(s)</a>
+        </button>
+        <button class="btn btn-lg btn-primary" type="button">
+            <a asp-controller="ImageUpload"
+               asp-action="ProcessImage">Process Image(s)</a>
+        </button>
+    </div>
 </div>
