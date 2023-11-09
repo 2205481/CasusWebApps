@@ -154,24 +154,29 @@ namespace CasusWebApps.Controllers
         }
 
         // GET: ImageUploadController1/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Guid id)
         {
-            return View();
+            var product = wasteDbContext.ImageHandlers.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
         }
 
         // POST: ImageUploadController1/Delete/5
-        [HttpPost]
+        [HttpPost ,ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult DeleteImage(Guid id)
         {
-            try
+            var product = wasteDbContext.ImageHandlers.Find(id);
+            if (product == null)
             {
-                return RedirectToAction(nameof(Index));
+                return NotFound();
             }
-            catch
-            {
-                return View();
-            }
+            wasteDbContext.ImageHandlers.Remove(product);
+            wasteDbContext.SaveChanges();
+            return RedirectToAction("Index");
 
         }
 

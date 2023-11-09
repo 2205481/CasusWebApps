@@ -13,14 +13,9 @@
     <table class="table table-bordered table-striped" style="width:100%">
         <thead>
             <tr>
-<<<<<<< master
-                <th>Url</th>
-=======
-                <th class="table-active">ItemType</th>
-                <th class="table-active">Url</th>
-                <th class="table-active"></th>
-                <th class="table-active"></th>
->>>>>>> dev-robert
+                <th class="table table-active">Url</th>
+                <th class="table table-active"></th>
+                <th class="table table-active"></th>
             </tr>
         </thead>
         <tbody>
@@ -29,10 +24,10 @@
                 <tr>
                     <td>@item.ImageUrl</td>
                     <td>
-                        <a asp-controller="ImageUpload" asp-action="Details" asp-route-itemId="@item.Id">Details</a>
+                        <a asp-controller="ImageUpload" asp-action="Details" asp-route-Id="@item.Id">Details</a>
                     </td>
                     <td>
-                        <a asp-controller="ImageUpload" asp-action="Delete" asp-route-itemid="@item.Id">Delete</a>
+                        <a asp-controller="ImageUpload" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
                     </td>
                 </tr>
             }
