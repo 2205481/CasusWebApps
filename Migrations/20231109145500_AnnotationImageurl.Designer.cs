@@ -4,6 +4,7 @@ using CasusWebApps.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CasusWebApps.Migrations
 {
     [DbContext(typeof(WasteDbContext))]
-    partial class WasteDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231109145500_AnnotationImageurl")]
+    partial class AnnotationImageurl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -43,14 +46,6 @@ namespace CasusWebApps.Migrations
                     b.Property<int>("BoundingBoxY")
                         .HasColumnType("int")
                         .HasColumnName("BoundingBoxY");
-
-                    b.Property<string>("CanvasImage")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ItemType")
                         .IsRequired()

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel;
 using CasusWebApps.Models;
+using CasusWebApps.Migrations;
 
 namespace CasusWebApps.Controllers
 {
@@ -30,7 +31,7 @@ namespace CasusWebApps.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(AddImageRequest addImageRequest)
         {
-            var imageHandler = new ImageHandler
+            var imageHandler = new CasusWebApps.Models.ImageHandler
             {
                 ItemType = addImageRequest.ItemType
             };
@@ -87,9 +88,22 @@ namespace CasusWebApps.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveAnnotation([FromBody] AnnotationModel annotation)
+        public IActionResult SaveAnnotation(AnnotationModel annotation)
         {
-            return Ok();
+            if (ModelState.IsValid)
+            {
+                string uploadsfolder = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "wwwroot", "processed-uploads");
+                string uniqueFileName = Guid.NewGuid().ToString() + "_processed_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ".jpg";
+                string filePath = System.IO.Path.Combine(uploadsfolder, uniqueFileName);
+
+
+
+                wasteDbContext.AnnotationModels.Add(annotation);
+                wasteDbContext.SaveChanges();
+                return Ok();
+            }
+            
+            return BadRequest();
         }
 
         // GET: ImageUploadController1/Details/5
