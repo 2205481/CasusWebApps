@@ -3,6 +3,7 @@ const canvas = document.getElementById('imageCanvas');
 const ctx = canvas.getContext('2d');
 const image = document.getElementById('image');
 const tagNameInput = document.getElementById('tagName');
+let itemTypeElement;
 const annotations = [];
 
 imageSelector.addEventListener('change', function () {
@@ -11,6 +12,23 @@ imageSelector.addEventListener('change', function () {
 
 function drawImage() {
     ctx.drawImage(image, 0, 0, image.width, image.height);
+
+    const boundingBox = getBoundingBox();
+
+    ctx.fillStyle = '#FFFFFF';
+    ctx.fillRect(startPoint.x, startPoint.y - 25, ctx.measureText(itemTypeElement.value).width, 25);
+
+    ctx.strokeStyle = '#00FF00';
+    ctx.lineWidth = 8;
+    ctx.strokeRect(boundingBox.x, boundingBox.y, boundingBox.width, boundingBox.height);
+
+    ctx.strokeRect(startPoint.x, startPoint.y,
+        endPoint.x - endPoint.x, endPoint.y - startPoint.y);
+
+    const itemType = itemTypeElement.value;
+    ctx.font = '20px Arial';
+    ctx.fillStyle = '#000000';
+    ctx.fillText(itemType, startPoint.x, startPoint.y - 5);
 }
 
 function loadImage() {
@@ -30,6 +48,8 @@ function loadImage() {
     };
 
     image.src = imageUrl;
+
+    itemTypeElement = document.getElementById('itemType');
 }
 
 function saveAnnotation() {
