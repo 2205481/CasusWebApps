@@ -67,7 +67,7 @@ namespace CasusWebApps.Controllers
 
             if (images.Any())
             {
-                return View("ProcessImage", images );
+                return View("ProcessImage", images);
             }
             return NotFound();
         }
@@ -104,7 +104,7 @@ namespace CasusWebApps.Controllers
                 return Ok();
             }
 
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 foreach (var modelState in ModelState.Values)
                 {
@@ -116,7 +116,7 @@ namespace CasusWebApps.Controllers
 
                 return BadRequest();
             }
-            
+
             return BadRequest();
         }
 
@@ -124,12 +124,6 @@ namespace CasusWebApps.Controllers
         {
             byte[] canvasImageBytes = Convert.FromBase64String(canvasImageData.Split(',')[1]);
             System.IO.File.WriteAllBytes(filePath, canvasImageBytes);
-        }
-
-        // GET: ImageUploadController1/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: ImageUploadController1/Edit/5
@@ -165,9 +159,9 @@ namespace CasusWebApps.Controllers
         }
 
         // POST: ImageUploadController1/Delete/5
-        [HttpPost ,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteImage(Guid id)
+        public ActionResult DeleteImage(Guid id, string file)
         {
             var product = wasteDbContext.ImageHandlers.Find(id);
             if (product == null)
@@ -176,9 +170,35 @@ namespace CasusWebApps.Controllers
             }
             wasteDbContext.ImageHandlers.Remove(product);
             wasteDbContext.SaveChanges();
+
+
             return RedirectToAction("Index");
 
         }
 
+        // GET: ImageUploadController1/Delete/5
+        public ActionResult Details(Guid id)
+        {
+            var product = wasteDbContext.ImageHandlers.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        // POST: ImageUploadController1/Delete/5
+        [HttpPost, ActionName("Details")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailsImage(Guid id)
+        {
+            var product = wasteDbContext.ImageHandlers.Find(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return RedirectToAction("Index");
+
+        }
     }
 }

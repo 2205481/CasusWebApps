@@ -20,10 +20,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="ImageUpload" asp-action="Create">Upload Image</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" <a asp-controller="ImageUpload" asp-action="ProcessImage">Process Image(s)</a></a>
+                            <a class="nav-link text-dark" asp-controller="ImageUpload" asp-action="Index">Stored Image(s)</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="ImageUpload" asp-action="ProcessImage">Process Image(s)</a>
                         </li>   
                     </ul>
                     <partial name="_LoginPartial" />
