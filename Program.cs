@@ -3,7 +3,6 @@ using CasusWebApps.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using SixLabors.ImageSharp.Web.DependencyInjection;
 
 namespace CasusWebApps
 {
@@ -30,8 +29,6 @@ namespace CasusWebApps
             
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddImageSharp();
-
             var app = builder.Build();
 
             /*
@@ -47,8 +44,6 @@ namespace CasusWebApps
                 app.UseHsts();
             }
             */
-            app.UseImageSharp();
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

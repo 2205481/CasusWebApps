@@ -1,10 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Drawing;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.Drawing.Processing;
 using System.IO;
 using CasusWebApps.Models;
 using Microsoft.Extensions.Hosting;
@@ -23,6 +17,7 @@ namespace CasusWebApps.Controllers
             this.hostEnvironment = hostEnvironment;
         }
 
+        /*
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ProcessImage(Guid id, IFormFile editedImage, int rectangleWidth, int rectangleHeight)
@@ -46,6 +41,6 @@ namespace CasusWebApps.Controllers
             }
 
                 return RedirectToAction("Index", "ImageUpload");
-        }
+        }*/
     }
 }
