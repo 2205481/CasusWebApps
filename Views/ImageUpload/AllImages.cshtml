@@ -7,7 +7,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th>ItemType</th>
                 <th>Url</th>
             </tr>
         </thead>
@@ -15,7 +14,6 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    <td>@item.ItemType</td>
                     <td>@item.ImageUrl</td>
                     <td>
                         <a asp-controller="ImageUpload" asp-action="Details" asp-route-itemId="@item.Id">Details</a>
