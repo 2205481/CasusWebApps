@@ -28,7 +28,7 @@ function drawImage() {
     const itemType = itemTypeElement.value;
     ctx.font = '20px Arial';
     ctx.fillStyle = '#000000';
-    ctx.fillText(itemType, startPoint.x, startPoint.y - 5);
+    ctx.fillText(itemType, boundingBox.x, boundingBox.y - 5);
 }
 
 function loadImage() {
