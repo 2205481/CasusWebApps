@@ -12,6 +12,10 @@
     <button type="submit" class="btn btn-danger">Delete All</button>
 </form>
 
+<form method="get" asp-controller="ProcessedImages" asp-action="DownloadAllImages">
+    <button type="submit" class="btn btn-primary">Download All</button>
+</form>
+
 @if (Model.Any())
 {
     <table class="table table-bordered table-striped" style="width:100%">

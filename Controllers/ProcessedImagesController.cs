@@ -7,6 +7,7 @@ using System.ComponentModel;
 using CasusWebApps.Models;
 using CasusWebApps.Migrations;
 using Microsoft.Extensions.Hosting;
+using System.IO.Compression;
 
 namespace CasusWebApps.Controllers
 {
@@ -86,6 +87,53 @@ namespace CasusWebApps.Controllers
 
             await wasteDbContext.SaveChangesAsync();
             return RedirectToAction("Index");
-        }  
+        }
+        
+        public ActionResult DownloadAllImages()
+        {
+            var processedImages = wasteDbContext.AnnotationModels.ToList();
+
+            string tempDir = System.IO.Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
+            Directory.CreateDirectory(tempDir);
+
+            try
+            {
+                foreach (var image in processedImages)
+                {
+                    var imagePath = Path.Combine(tempDir, $"{image.Id}_{image.ImageUrl}");
+
+                    if (System.IO.File.Exists(image.ImageUrl))
+                    {
+                        byte[] imageBytes = System.IO.File.ReadAllBytes(image.ImageUrl);
+
+                        System.IO.File.WriteAllBytes(imagePath, imageBytes);
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Image file not found: {image.ImageUrl}");
+                    }
+                
+                }
+
+                string zipFilePath = System.IO.Path.Combine(Path.GetTempPath(), "ProcessedImages.zip");
+                
+                if (Directory.EnumerateFiles(tempDir).Any())
+                {
+                    ZipFile.CreateFromDirectory(tempDir, zipFilePath);
+                    return File(zipFilePath, "application/zip", "ProcessedImages.zip");
+
+                }
+                else
+                {
+                    Console.WriteLine("No files to include in zip");
+                    return NotFound();
+                }
+                    
+            }
+            finally
+            {
+                Directory.Delete(tempDir, true);
+            }
+        }
     }
 }
