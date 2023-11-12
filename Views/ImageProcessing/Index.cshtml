@@ -1,0 +1,42 @@
+﻿@model List<AnnotationModel>
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">All items</h2>
+        </div>
+    </div>
+</div>
+
+@if (Model.Any())
+{
+    <table class="table table-bordered table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th class="table table-active">Url</th>
+                <th class="table table-active"></th>
+                <th class="table table-active"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.ImageUrl</td>
+                    <td>@item.ItemType</td>
+                    <td>
+                        <a asp-controller="ImageProcessing" asp-action="Details" asp-route-Id="@item.Id">Details</a>
+                    </td>
+                    <td>
+                        <a asp-controller="ImageProcessing" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No items available.</p>
+}
+

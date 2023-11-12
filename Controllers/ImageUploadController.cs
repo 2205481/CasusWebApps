@@ -187,18 +187,18 @@ namespace CasusWebApps.Controllers
             return View(product);
         }
 
-        // POST: ImageUploadController1/Delete/5
-        [HttpPost, ActionName("Details")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DetailsImage(Guid id)
-        {
-            var product = wasteDbContext.ImageHandlers.Find(id);
-            if (product == null)
+            // POST: ImageUploadController1/Delete/5
+            [HttpPost, ActionName("Details")]
+            [ValidateAntiForgeryToken]
+            public ActionResult DetailsImage(Guid id)
             {
-                return NotFound();
-            }
-            return RedirectToAction("Index");
+                var product = wasteDbContext.ImageHandlers.Find(id);
+                if (product == null)
+                {
+                    return NotFound();
+                }
+                return RedirectToAction("Index");
 
-        }
+            }
     }
 }

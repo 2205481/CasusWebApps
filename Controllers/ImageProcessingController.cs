@@ -17,30 +17,45 @@ namespace CasusWebApps.Controllers
             this.hostEnvironment = hostEnvironment;
         }
 
-        /*
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult ProcessImage(Guid id, IFormFile editedImage, int rectangleWidth, int rectangleHeight)
+        // GET: ImageUploadController1/Delete/5
+        public ActionResult Details(Guid id)
         {
-            var originalImage = wasteDbContext.ImageHandlers.Find(id);
+            var annotated = wasteDbContext.AnnotationModels.Find(id);
 
-            if (editedImage != null && editedImage.Length > 0)
+            return View("Details", annotated);
+        }
+
+        // POST: ImageUploadController1/Delete/5
+        [HttpPost, ActionName("Details")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailsImage1(Guid id)
+        {
+            var annotated = wasteDbContext.AnnotationModels.Find(id);
+            if (annotated == null)
             {
-                using (var stream = editedImage.OpenReadStream())
-                using (var editedImageInstance = Image.Load(stream))
-                {
-                    var rectangle = new RectangularPolygon(10, 10, rectangleWidth, rectangleHeight);
-                    editedImageInstance.Mutate(ctx => ctx.Draw(Color.Green, 2, rectangle));
-
-                    var uploadsFolder = System.IO.Path.Combine(hostEnvironment.ContentRootPath, "wwwroot", "processed-uploads");
-                    var uniqueFileName = Guid.NewGuid().ToString() + "_" + System.IO.Path.GetFileName(originalImage.ImageUrl);
-                    var editedFilePath = System.IO.Path.Combine(uploadsFolder, uniqueFileName);
-
-                    editedImageInstance.Save(editedFilePath, new JpegEncoder());
-                }
+                return NotFound();
             }
+            return RedirectToAction("Index");
 
-                return RedirectToAction("Index", "ImageUpload");
-        }*/
+        }
+
+		public IActionResult DetailImage2()
+		{
+			var images = wasteDbContext.AnnotationModels.ToList();
+
+			if (images.Any())
+			{
+				return View("Details", images);
+			}
+			return NotFound();
+		}
+
+		// GET: ImageUploadController1
+		public ActionResult Index()
+        {
+            var annotationModel = wasteDbContext.AnnotationModels.ToList();
+            return View("Index", annotationModel);
+        }
+
     }
 }

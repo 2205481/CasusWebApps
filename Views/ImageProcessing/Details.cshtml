@@ -1,0 +1,17 @@
+﻿@model List<CasusWebApps.Models.AnnotationModel>
+
+@{
+	ViewData["Title"] = "All Images";
+}
+
+
+
+@foreach (var image in Model)
+{
+    <div>
+        <img src="@image.ImageUrl" alt="Image" />
+
+        <a asp-controller="ImageProcessing" asp-action="DetailsImage2" asp-route-id="@image.Id">Process Image</a>
+    </div>
+}
+
