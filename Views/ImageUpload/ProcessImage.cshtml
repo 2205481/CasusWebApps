@@ -9,7 +9,7 @@
     <select id="imageSelector" required>
         @foreach (var image in Model)
         {
-            <option value="@image.Id">@image.ImageUrl</option>
+            <option value="@image.Id" class="img-size-2">@image.ImageUrl</option>
         }
     </select>
     <br />

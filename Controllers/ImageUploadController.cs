@@ -161,22 +161,20 @@ namespace CasusWebApps.Controllers
         // POST: ImageUploadController1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteImage(Guid id, string file)
+        public ActionResult DeleteImage(Guid id)
         {
             var product = wasteDbContext.ImageHandlers.Find(id);
             if (product == null)
             {
                 return NotFound();
             }
+
             wasteDbContext.ImageHandlers.Remove(product);
             wasteDbContext.SaveChanges();
-
-
             return RedirectToAction("Index");
-
         }
 
-        // GET: ImageUploadController1/Delete/5
+        // GET: ImageUploadController1/Details/5
         public ActionResult Details(Guid id)
         {
             var product = wasteDbContext.ImageHandlers.Find(id);
@@ -187,18 +185,18 @@ namespace CasusWebApps.Controllers
             return View(product);
         }
 
-            // POST: ImageUploadController1/Delete/5
-            [HttpPost, ActionName("Details")]
-            [ValidateAntiForgeryToken]
-            public ActionResult DetailsImage(Guid id)
+        // POST: ImageUploadController1/Details/5
+        [HttpPost, ActionName("Details")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DetailsImage(Guid id)
+        {
+            var product = wasteDbContext.ImageHandlers.Find(id);
+            if (product == null)
             {
-                var product = wasteDbContext.ImageHandlers.Find(id);
-                if (product == null)
-                {
-                    return NotFound();
-                }
-                return RedirectToAction("Index");
-
+                return NotFound();
             }
+            return RedirectToAction("Index");
+
+        }
     }
 }
