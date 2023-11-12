@@ -76,5 +76,16 @@ namespace CasusWebApps.Controllers
             return RedirectToAction("Index");
 
         }
+
+        [HttpPost, ActionName("DeleteAll")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteAll()
+        {
+            var allAnnotations = await wasteDbContext.AnnotationModels.ToListAsync();
+            wasteDbContext.AnnotationModels.RemoveRange(allAnnotations);
+
+            await wasteDbContext.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }  
     }
 }
