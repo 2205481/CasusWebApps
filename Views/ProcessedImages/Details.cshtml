@@ -1,0 +1,21 @@
+﻿@model AnnotationModel
+
+<form method="post" asp-action="Delete">
+	<input asp-for="Id" hidden />
+	<div class="border p-3 mt-4">
+		<div class="row pb-2">
+			<h2 class="text-primary">
+				Details of the image
+			</h2>
+			<hr />
+		</div>
+		<div class="mb-3">
+			<label asp-for="ImageUrl" dis></label>
+			<input asp-for="ImageUrl" disabled class="form-control" />
+		</div>
+		<div class="mb-3">
+			@Html.Partial("_ImageViewProcessed")
+		</div>
+		<a asp-controller="ImageUpload" asp-action="Index" class="btn btn-secondary" style="width:150px">Back</a>
+	</div>
+</form>
